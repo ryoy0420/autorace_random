@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>オートレース 3連単 ランダム予想</title>
+    <title>競輪 3連単 ランダム予想</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -45,14 +45,14 @@
             text-align: center;
         }
         .nav-container a.active {
-            background-color: #1a237e;
+            background-color: #d32f2f;
             color: white;
-            border-color: #1a237e;
+            border-color: #d32f2f;
             font-weight: bold;
         }
         h1 {
             text-align: center;
-            color: #1a237e;
+            color: #d32f2f;
             margin-top: 0;
             margin-bottom: 20px;
             font-size: 1.6em;
@@ -62,10 +62,10 @@
         }
         .control-group h2 {
             font-size: 1.1em;
-            color: #3f51b5;
+            color: #c62828;
             margin-top: 0;
             margin-bottom: 15px;
-            border-bottom: 2px solid #e8eaf6;
+            border-bottom: 2px solid #ffcdd2;
             padding-bottom: 8px;
         }
         .radio-group, .checkbox-group {
@@ -94,9 +94,9 @@
             display: none;
         }
         .radio-group input[type="radio"]:checked + label {
-            background-color: #3f51b5;
+            background-color: #c62828;
             color: white;
-            border-color: #3f51b5;
+            border-color: #c62828;
             font-weight: bold;
         }
         .checkbox-group input[type="checkbox"]:checked + label {
@@ -105,20 +105,21 @@
             border-style: dashed;
         }
 
-        /* Car Colors */
-        .car-label {
+        /* Racer Colors */
+        .racer-label {
             color: white;
             font-weight: bold;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        .car-1 { background-color: #ffffff; color: #000000; border: 1px solid #999; text-shadow: none;}
-        .car-2 { background-color: #000000; }
-        .car-3 { background-color: #ff0000; }
-        .car-4 { background-color: #0000ff; }
-        .car-5 { background-color: #ffff00; color: #000000; text-shadow: none;}
-        .car-6 { background-color: #008000; }
-        .car-7 { background-color: #ffa500; }
-        .car-8 { background-color: #ffc0cb; color: #000000; text-shadow: none;}
+        .racer-1 { background-color: #ffffff; color: #000000; border: 1px solid #999; text-shadow: none;}
+        .racer-2 { background-color: #000000; }
+        .racer-3 { background-color: #ff0000; }
+        .racer-4 { background-color: #0000ff; }
+        .racer-5 { background-color: #ffff00; color: #000000; text-shadow: none;}
+        .racer-6 { background-color: #008000; }
+        .racer-7 { background-color: #ffa500; }
+        .racer-8 { background-color: #ffc0cb; color: #000000; text-shadow: none;}
+        .racer-9 { background-color: #800080; }
 
         .fix-group {
             display: grid;
@@ -147,7 +148,7 @@
             font-size: 1.2em;
             font-weight: bold;
             color: white;
-            background: linear-gradient(45deg, #ff4081, #f50057);
+            background: linear-gradient(45deg, #d32f2f, #b71c1c);
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -155,7 +156,7 @@
             margin-top: 10px;
         }
         .predict-button:hover {
-            background: linear-gradient(45deg, #f50057, #ff4081);
+            background: linear-gradient(45deg, #b71c1c, #d32f2f);
         }
         #result {
             margin-top: 25px;
@@ -168,14 +169,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #e8eaf6;
+            background-color: #ffcdd2;
         }
         .result-box {
             display: flex;
             gap: 15px;
             align-items: center;
         }
-        .result-car {
+        .result-racer {
             width: 50px;
             height: 50px;
             line-height: 50px;
@@ -219,7 +220,7 @@
             #result {
                 font-size: 1.5em;
             }
-            .result-car {
+            .result-racer {
                 width: 45px;
                 height: 45px;
                 line-height: 45px;
@@ -232,30 +233,31 @@
     <div class="container">
 
         <div class="nav-container">
-            <a href="index.html" class="active">オートレース</a>
+            <a href="index.html">オートレース</a>
             <a href="keiba.html">競馬</a>
             <a href="boatrace.html">競艇</a>
-            <a href="keirin.html">競輪</a>
+            <a href="keirin.html" class="active">競輪</a>
         </div>
-        <h1>オートレース 3連単ランダム予想</h1>
+        <h1>競輪 3連単 ランダム予想</h1>
 
         <div class="control-group">
-            <h2>1. レース車数</h2>
+            <h2>1. レース車番</h2>
             <div id="race-size-selector" class="radio-group">
                 <input type="radio" id="size6" name="race-size" value="6">
                 <label for="size6">6車</label>
                 <input type="radio" id="size7" name="race-size" value="7">
                 <label for="size7">7車</label>
-                <input type="radio" id="size8" name="race-size" value="8" checked>
+                <input type="radio" id="size8" name="race-size" value="8">
                 <label for="size8">8車</label>
+                <input type="radio" id="size9" name="race-size" value="9" checked>
+                <label for="size9">9車</label>
             </div>
         </div>
 
         <div class="control-group">
             <h2>2. 欠車指定 (あれば)</h2>
             <div id="absent-selector" class="checkbox-group">
-                <!-- Checkboxes will be generated by JS -->
-            </div>
+                </div>
         </div>
 
         <div class="control-group">
@@ -310,9 +312,9 @@
             const resultDiv = document.getElementById('result');
             const raceSizeSelector = document.getElementById('race-size-selector');
 
-            const carColors = {
-                1: 'car-1', 2: 'car-2', 3: 'car-3', 4: 'car-4',
-                5: 'car-5', 6: 'car-6', 7: 'car-7', 8: 'car-8'
+            const racerColors = {
+                1: 'racer-1', 2: 'racer-2', 3: 'racer-3', 4: 'racer-4',
+                5: 'racer-5', 6: 'racer-6', 7: 'racer-7', 8: 'racer-8', 9: 'racer-9'
             };
 
             function initializeSelectors() {
@@ -321,27 +323,27 @@
                     sel.innerHTML = '<option value="0">なし</option>';
                 });
 
-                for (let i = 1; i <= 8; i++) {
-                    const checkboxId = `car${i}`;
-                    const carLabelClass = carColors[i].startsWith('car-1') || carColors[i].startsWith('car-5') || carColors[i].startsWith('car-8') ? '' : 'car-label';
+                for (let i = 1; i <= 9; i++) {
+                    const checkboxId = `racer${i}`;
+                    const racerLabelClass = racerColors[i].startsWith('racer-1') || racerColors[i].startsWith('racer-5') ? '' : 'racer-label';
                     absentSelector.innerHTML += `
                         <div>
                             <input type="checkbox" id="${checkboxId}" name="absent" value="${i}">
-                            <label for="${checkboxId}" class="${carColors[i]} ${carLabelClass}">${i}</label>
+                            <label for="${checkboxId}" class="${racerColors[i]} ${racerLabelClass}">${i}</label>
                         </div>
                     `;
-                    const option = `<option value="${i}">${i}号車</option>`;
+                    const option = `<option value="${i}">${i}番車</option>`;
                     fix1Select.innerHTML += option;
                     fix2Select.innerHTML += option;
                     fix3Select.innerHTML += option;
                 }
             }
 
-            function getActiveCars() {
+            function getActiveRacers() {
                 const raceSize = parseInt(document.querySelector('input[name="race-size"]:checked').value);
-                const allCars = Array.from({ length: raceSize }, (_, i) => i + 1);
-                const absentCars = Array.from(document.querySelectorAll('input[name="absent"]:checked')).map(cb => parseInt(cb.value));
-                return allCars.filter(car => !absentCars.includes(car));
+                const allRacers = Array.from({ length: raceSize }, (_, i) => i + 1);
+                const absentRacers = Array.from(document.querySelectorAll('input[name="absent"]:checked')).map(cb => parseInt(cb.value));
+                return allRacers.filter(racer => !absentRacers.includes(racer));
             }
 
             function shuffleArray(array) {
@@ -352,15 +354,32 @@
                 return array;
             }
 
+            function displayResult(result) {
+                const [r1, r2, r3] = result;
+                const racerLabelClass1 = racerColors[r1].startsWith('racer-1') || racerColors[r1].startsWith('racer-5') ? '' : 'racer-label';
+                const racerLabelClass2 = racerColors[r2].startsWith('racer-1') || racerColors[r2].startsWith('racer-5') ? '' : 'racer-label';
+                const racerLabelClass3 = racerColors[r3].startsWith('racer-1') || racerColors[r3].startsWith('racer-5') ? '' : 'racer-label';
+                resultDiv.innerHTML = `
+                    <div class="result-box">
+                        <div class="result-racer ${racerColors[r1]} ${racerLabelClass1}">${r1}</div>
+                        <span class="result-arrow">→</span>
+                        <div class="result-racer ${racerColors[r2]} ${racerLabelClass2}">${r2}</div>
+                        <span class="result-arrow">→</span>
+                        <div class="result-racer ${racerColors[r3]} ${racerLabelClass3}">${r3}</div>
+                    </div>
+                `;
+                predictBtn.disabled = false;
+            }
+
             function runAnimation(finalResult) {
                 predictBtn.disabled = true;
                 resultDiv.innerHTML = `
                     <div class="result-box">
-                        <div class="result-car" id="res-1">?</div>
+                        <div class="result-racer" id="res-1">?</div>
                         <span class="result-arrow">→</span>
-                        <div class="result-car" id="res-2">?</div>
+                        <div class="result-racer" id="res-2">?</div>
                         <span class="result-arrow">→</span>
-                        <div class="result-car" id="res-3">?</div>
+                        <div class="result-racer" id="res-3">?</div>
                     </div>
                 `;
 
@@ -369,23 +388,23 @@
                     document.getElementById('res-2'),
                     document.getElementById('res-3')
                 ];
-                const activeCars = getActiveCars();
+                const activeRacers = getActiveRacers();
 
                 const animateBox = (box, finalNumber, delay) => {
                     return new Promise(resolve => {
                         setTimeout(() => {
                             const interval = setInterval(() => {
-                                const randomCar = activeCars[Math.floor(Math.random() * activeCars.length)];
-                                const carLabelClass = carColors[randomCar].startsWith('car-1') || carColors[randomCar].startsWith('car-5') || carColors[randomCar].startsWith('car-8') ? '' : 'car-label';
-                                box.textContent = randomCar;
-                                box.className = `result-car ${carColors[randomCar]} ${carLabelClass}`;
+                                const randomRacer = activeRacers[Math.floor(Math.random() * activeRacers.length)];
+                                const racerLabelClass = racerColors[randomRacer].startsWith('racer-1') || racerColors[randomRacer].startsWith('racer-5') ? '' : 'racer-label';
+                                box.textContent = randomRacer;
+                                box.className = `result-racer ${racerColors[randomRacer]} ${racerLabelClass}`;
                             }, 80);
 
                             setTimeout(() => {
                                 clearInterval(interval);
-                                const carLabelClass = carColors[finalNumber].startsWith('car-1') || carColors[finalNumber].startsWith('car-5') || carColors[finalNumber].startsWith('car-8') ? '' : 'car-label';
+                                const racerLabelClass = racerColors[finalNumber].startsWith('racer-1') || racerColors[finalNumber].startsWith('racer-5') ? '' : 'racer-label';
                                 box.textContent = finalNumber;
-                                box.className = `result-car ${carColors[finalNumber]} ${carLabelClass}`;
+                                box.className = `result-racer ${racerColors[finalNumber]} ${racerLabelClass}`;
                                 resolve();
                             }, 1000);
                         }, delay);
@@ -412,38 +431,38 @@
                 const fix1 = parseInt(fix1Select.value);
                 const fix2 = parseInt(fix2Select.value);
                 const fix3 = parseInt(fix3Select.value);
-                const fixedCars = [fix1, fix2, fix3];
-                let activeCars = getActiveCars();
+                const fixedRacers = [fix1, fix2, fix3];
+                let activeRacers = getActiveRacers();
 
-                const fixedCarsSet = new Set(fixedCars.filter(c => c !== 0));
-                if (fixedCarsSet.size !== fixedCars.filter(c => c !== 0).length) {
+                const fixedRacersSet = new Set(fixedRacers.filter(c => c !== 0));
+                if (fixedRacersSet.size !== fixedRacers.filter(c => c !== 0).length) {
                     displayError("エラー: 軸固定で同じ車番は選べません。");
                     return;
                 }
-                for (const car of fixedCarsSet) {
-                    if (!activeCars.includes(car)) {
-                        displayError(`エラー: 軸固定された${car}号車が欠車か、レース対象外です。`);
+                for (const racer of fixedRacersSet) {
+                    if (!activeRacers.includes(racer)) {
+                        displayError(`エラー: 軸固定された${racer}番車が欠車か、レース対象外です。`);
                         return;
                     }
                 }
-                if (activeCars.length < 3) {
-                    displayError("エラー: 3連単を成立させるには、3台以上の出走車が必要です。");
+                if (activeRacers.length < 3) {
+                    displayError("エラー: 3連単を成立させるには、3車以上の出走車が必要です。");
                     return;
                 }
 
                 let result = [0, 0, 0];
-                let availableCars = [...activeCars];
-                [fix1, fix2, fix3].forEach((car, index) => {
-                    if (car !== 0) {
-                        result[index] = car;
-                        availableCars = availableCars.filter(c => c !== car);
+                let availableRacers = [...activeRacers];
+                [fix1, fix2, fix3].forEach((racer, index) => {
+                    if (racer !== 0) {
+                        result[index] = racer;
+                        availableRacers = availableRacers.filter(c => c !== racer);
                     }
                 });
 
-                availableCars = shuffleArray(availableCars);
+                availableRacers = shuffleArray(availableRacers);
                 for (let i = 0; i < 3; i++) {
                     if (result[i] === 0) {
-                        result[i] = availableCars.shift();
+                        result[i] = availableRacers.shift();
                     }
                 }
                 
@@ -451,7 +470,7 @@
                     runAnimation(result); // runAnimation内でボタン有効化を処理
                 } else {
                     displayResult(result);
-                    // predictBtn.disabled = false; // displayResult内で有効化されるため不要
+                    predictBtn.disabled = false; // アニメーションなしの場合に有効化
                 }
             });
 

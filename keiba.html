@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>オートレース 3連単 ランダム予想</title>
+    <title>競馬 3連単 ランダム予想</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -23,7 +23,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
         }
         .nav-container {
             display: flex;
@@ -45,14 +45,14 @@
             text-align: center;
         }
         .nav-container a.active {
-            background-color: #1a237e;
+            background-color: #006400;
             color: white;
-            border-color: #1a237e;
+            border-color: #006400;
             font-weight: bold;
         }
         h1 {
             text-align: center;
-            color: #1a237e;
+            color: #006400;
             margin-top: 0;
             margin-bottom: 20px;
             font-size: 1.6em;
@@ -62,28 +62,28 @@
         }
         .control-group h2 {
             font-size: 1.1em;
-            color: #3f51b5;
+            color: #2e8b57;
             margin-top: 0;
             margin-bottom: 15px;
-            border-bottom: 2px solid #e8eaf6;
+            border-bottom: 2px solid #e8f5e9;
             padding-bottom: 8px;
         }
         .radio-group, .checkbox-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
         }
         .radio-group label, .checkbox-group label {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 15px;
+            padding: 8px 12px;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 1px solid #ccc;
-            min-width: 60px;
+            min-width: 40px;
             text-align: center;
         }
 
@@ -94,9 +94,9 @@
             display: none;
         }
         .radio-group input[type="radio"]:checked + label {
-            background-color: #3f51b5;
+            background-color: #2e8b57;
             color: white;
-            border-color: #3f51b5;
+            border-color: #2e8b57;
             font-weight: bold;
         }
         .checkbox-group input[type="checkbox"]:checked + label {
@@ -105,20 +105,21 @@
             border-style: dashed;
         }
 
-        /* Car Colors */
-        .car-label {
-            color: white;
+        /* Frame Colors */
+        .frame-1 { background-color: #ffffff; color: #000000; border: 1px solid #999; text-shadow: none;}
+        .frame-2 { background-color: #000000; color: #ffffff; }
+        .frame-3 { background-color: #ff0000; color: #ffffff; }
+        .frame-4 { background-color: #0000ff; color: #ffffff; }
+        .frame-5 { background-color: #ffff00; color: #000000; text-shadow: none;}
+        .frame-6 { background-color: #008000; color: #ffffff; }
+        .frame-7 { background-color: #ffa500; color: #ffffff; }
+        .frame-8 { background-color: #ffc0cb; color: #000000; text-shadow: none;}
+
+        .horse-label {
             font-weight: bold;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        .car-1 { background-color: #ffffff; color: #000000; border: 1px solid #999; text-shadow: none;}
-        .car-2 { background-color: #000000; }
-        .car-3 { background-color: #ff0000; }
-        .car-4 { background-color: #0000ff; }
-        .car-5 { background-color: #ffff00; color: #000000; text-shadow: none;}
-        .car-6 { background-color: #008000; }
-        .car-7 { background-color: #ffa500; }
-        .car-8 { background-color: #ffc0cb; color: #000000; text-shadow: none;}
+
 
         .fix-group {
             display: grid;
@@ -147,7 +148,7 @@
             font-size: 1.2em;
             font-weight: bold;
             color: white;
-            background: linear-gradient(45deg, #ff4081, #f50057);
+            background: linear-gradient(45deg, #388e3c, #1b5e20);
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -155,7 +156,7 @@
             margin-top: 10px;
         }
         .predict-button:hover {
-            background: linear-gradient(45deg, #f50057, #ff4081);
+            background: linear-gradient(45deg, #1b5e20, #388e3c);
         }
         #result {
             margin-top: 25px;
@@ -168,14 +169,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #e8eaf6;
+            background-color: #e8f5e9;
         }
         .result-box {
             display: flex;
             gap: 15px;
             align-items: center;
         }
-        .result-car {
+        .result-horse {
             width: 50px;
             height: 50px;
             line-height: 50px;
@@ -210,7 +211,7 @@
             }
             .radio-group label, .checkbox-group label {
                 padding: 8px 10px;
-                min-width: 50px;
+                min-width: 40px;
             }
             .predict-button {
                 padding: 12px;
@@ -219,7 +220,7 @@
             #result {
                 font-size: 1.5em;
             }
-            .result-car {
+            .result-horse {
                 width: 45px;
                 height: 45px;
                 line-height: 45px;
@@ -232,30 +233,23 @@
     <div class="container">
 
         <div class="nav-container">
-            <a href="index.html" class="active">オートレース</a>
-            <a href="keiba.html">競馬</a>
+            <a href="index.html">オートレース</a>
+            <a href="keiba.html" class="active">競馬</a>
             <a href="boatrace.html">競艇</a>
             <a href="keirin.html">競輪</a>
         </div>
-        <h1>オートレース 3連単ランダム予想</h1>
+        <h1>競馬 3連単 ランダム予想</h1>
 
         <div class="control-group">
-            <h2>1. レース車数</h2>
+            <h2>1. レース頭数</h2>
             <div id="race-size-selector" class="radio-group">
-                <input type="radio" id="size6" name="race-size" value="6">
-                <label for="size6">6車</label>
-                <input type="radio" id="size7" name="race-size" value="7">
-                <label for="size7">7車</label>
-                <input type="radio" id="size8" name="race-size" value="8" checked>
-                <label for="size8">8車</label>
-            </div>
+                </div>
         </div>
 
         <div class="control-group">
-            <h2>2. 欠車指定 (あれば)</h2>
+            <h2>2. 除外馬指定 (あれば)</h2>
             <div id="absent-selector" class="checkbox-group">
-                <!-- Checkboxes will be generated by JS -->
-            </div>
+                </div>
         </div>
 
         <div class="control-group">
@@ -302,46 +296,103 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const raceSizeSelector = document.getElementById('race-size-selector');
             const absentSelector = document.getElementById('absent-selector');
             const fix1Select = document.getElementById('fix1');
             const fix2Select = document.getElementById('fix2');
             const fix3Select = document.getElementById('fix3');
             const predictBtn = document.getElementById('predict-btn');
             const resultDiv = document.getElementById('result');
-            const raceSizeSelector = document.getElementById('race-size-selector');
 
-            const carColors = {
-                1: 'car-1', 2: 'car-2', 3: 'car-3', 4: 'car-4',
-                5: 'car-5', 6: 'car-6', 7: 'car-7', 8: 'car-8'
-            };
+            const minHorses = 5;
+            const maxHorses = 18;
 
-            function initializeSelectors() {
+            function getFrameInfo(horseNumber, raceSize) {
+                let frame;
+                if (raceSize <= 8) {
+                    frame = horseNumber;
+                } else {
+                    const base = Math.floor(raceSize / 8);
+                    const remainder = raceSize % 8;
+                    const horsesPerFrame = new Array(8).fill(base);
+                    const firstFrameWithMoreHorses = 8 - remainder;
+                    for (let i = firstFrameWithMoreHorses; i < 8; i++) {
+                        horsesPerFrame[i]++;
+                    }
+
+                    let cumulativeHorses = 0;
+                    for (let i = 0; i < 8; i++) {
+                        cumulativeHorses += horsesPerFrame[i];
+                        if (horseNumber <= cumulativeHorses) {
+                            frame = i + 1;
+                            break;
+                        }
+                    }
+                }
+
+                const labelClass = (frame === 1 || frame === 5 || frame === 8) ? '' : 'horse-label';
+                return { frameClass: `frame-${frame}`, labelClass: labelClass };
+            }
+
+            function updateSelectors() {
+                const raceSize = parseInt(document.querySelector('input[name="race-size"]:checked').value);
+
+                document.querySelectorAll('#absent-selector > div').forEach((div, index) => {
+                    const horseNumber = index + 1;
+                    const label = div.querySelector('label');
+                    
+                    if (horseNumber <= raceSize) {
+                        div.style.display = 'flex';
+                        const { frameClass, labelClass } = getFrameInfo(horseNumber, raceSize);
+                        
+                        label.className = '';
+                        label.classList.add(frameClass);
+                        if(labelClass) label.classList.add(labelClass);
+
+                    } else {
+                        div.style.display = 'none';
+                        div.querySelector('input[type="checkbox"]').checked = false;
+                    }
+                });
+            }
+
+            function initializePage() {
+                for (let i = minHorses; i <= maxHorses; i++) {
+                    const checked = i === 18 ? 'checked' : '';
+                    raceSizeSelector.innerHTML += `
+                        <input type="radio" id="size${i}" name="race-size" value="${i}" ${checked}>
+                        <label for="size${i}">${i}</label>
+                    `;
+                }
+
                 absentSelector.innerHTML = '';
                 [fix1Select, fix2Select, fix3Select].forEach(sel => {
                     sel.innerHTML = '<option value="0">なし</option>';
                 });
 
-                for (let i = 1; i <= 8; i++) {
-                    const checkboxId = `car${i}`;
-                    const carLabelClass = carColors[i].startsWith('car-1') || carColors[i].startsWith('car-5') || carColors[i].startsWith('car-8') ? '' : 'car-label';
+                for (let i = 1; i <= maxHorses; i++) {
+                    const checkboxId = `horse${i}`;
                     absentSelector.innerHTML += `
-                        <div>
+                        <div style="display: none;">
                             <input type="checkbox" id="${checkboxId}" name="absent" value="${i}">
-                            <label for="${checkboxId}" class="${carColors[i]} ${carLabelClass}">${i}</label>
+                            <label for="${checkboxId}">${i}</label>
                         </div>
                     `;
-                    const option = `<option value="${i}">${i}号車</option>`;
+
+                    const option = `<option value="${i}">${i}番</option>`;
                     fix1Select.innerHTML += option;
                     fix2Select.innerHTML += option;
                     fix3Select.innerHTML += option;
                 }
+                
+                updateSelectors();
             }
 
-            function getActiveCars() {
+            function getActiveHorses() {
                 const raceSize = parseInt(document.querySelector('input[name="race-size"]:checked').value);
-                const allCars = Array.from({ length: raceSize }, (_, i) => i + 1);
-                const absentCars = Array.from(document.querySelectorAll('input[name="absent"]:checked')).map(cb => parseInt(cb.value));
-                return allCars.filter(car => !absentCars.includes(car));
+                const allHorses = Array.from({ length: raceSize }, (_, i) => i + 1);
+                const absentHorses = Array.from(document.querySelectorAll('input[name="absent"]:checked')).map(cb => parseInt(cb.value));
+                return allHorses.filter(horse => !absentHorses.includes(horse));
             }
 
             function shuffleArray(array) {
@@ -352,15 +403,33 @@
                 return array;
             }
 
+            function displayResult(result) {
+                const raceSize = parseInt(document.querySelector('input[name="race-size"]:checked').value);
+                const [r1, r2, r3] = result;
+                const { frameClass: frameClass1, labelClass: labelClass1 } = getFrameInfo(r1, raceSize);
+                const { frameClass: frameClass2, labelClass: labelClass2 } = getFrameInfo(r2, raceSize);
+                const { frameClass: frameClass3, labelClass: labelClass3 } = getFrameInfo(r3, raceSize);
+                resultDiv.innerHTML = `
+                    <div class="result-box">
+                        <div class="result-horse ${frameClass1} ${labelClass1}">${r1}</div>
+                        <span class="result-arrow">→</span>
+                        <div class="result-horse ${frameClass2} ${labelClass2}">${r2}</div>
+                        <span class="result-arrow">→</span>
+                        <div class="result-horse ${frameClass3} ${labelClass3}">${r3}</div>
+                    </div>
+                `;
+                predictBtn.disabled = false;
+            }
+
             function runAnimation(finalResult) {
                 predictBtn.disabled = true;
                 resultDiv.innerHTML = `
                     <div class="result-box">
-                        <div class="result-car" id="res-1">?</div>
+                        <div class="result-horse" id="res-1">?</div>
                         <span class="result-arrow">→</span>
-                        <div class="result-car" id="res-2">?</div>
+                        <div class="result-horse" id="res-2">?</div>
                         <span class="result-arrow">→</span>
-                        <div class="result-car" id="res-3">?</div>
+                        <div class="result-horse" id="res-3">?</div>
                     </div>
                 `;
 
@@ -369,23 +438,24 @@
                     document.getElementById('res-2'),
                     document.getElementById('res-3')
                 ];
-                const activeCars = getActiveCars();
+                const activeHorses = getActiveHorses();
+                const raceSize = parseInt(document.querySelector('input[name="race-size"]:checked').value);
 
                 const animateBox = (box, finalNumber, delay) => {
                     return new Promise(resolve => {
                         setTimeout(() => {
                             const interval = setInterval(() => {
-                                const randomCar = activeCars[Math.floor(Math.random() * activeCars.length)];
-                                const carLabelClass = carColors[randomCar].startsWith('car-1') || carColors[randomCar].startsWith('car-5') || carColors[randomCar].startsWith('car-8') ? '' : 'car-label';
-                                box.textContent = randomCar;
-                                box.className = `result-car ${carColors[randomCar]} ${carLabelClass}`;
+                                const randomHorse = activeHorses[Math.floor(Math.random() * activeHorses.length)];
+                                const { frameClass, labelClass } = getFrameInfo(randomHorse, raceSize);
+                                box.textContent = randomHorse;
+                                box.className = `result-horse ${frameClass} ${labelClass}`;
                             }, 80);
 
                             setTimeout(() => {
                                 clearInterval(interval);
-                                const carLabelClass = carColors[finalNumber].startsWith('car-1') || carColors[finalNumber].startsWith('car-5') || carColors[finalNumber].startsWith('car-8') ? '' : 'car-label';
+                                const { frameClass, labelClass } = getFrameInfo(finalNumber, raceSize);
                                 box.textContent = finalNumber;
-                                box.className = `result-car ${carColors[finalNumber]} ${carLabelClass}`;
+                                box.className = `result-horse ${frameClass} ${labelClass}`;
                                 resolve();
                             }, 1000);
                         }, delay);
@@ -412,38 +482,38 @@
                 const fix1 = parseInt(fix1Select.value);
                 const fix2 = parseInt(fix2Select.value);
                 const fix3 = parseInt(fix3Select.value);
-                const fixedCars = [fix1, fix2, fix3];
-                let activeCars = getActiveCars();
+                const fixedHorses = [fix1, fix2, fix3];
+                let activeHorses = getActiveHorses();
 
-                const fixedCarsSet = new Set(fixedCars.filter(c => c !== 0));
-                if (fixedCarsSet.size !== fixedCars.filter(c => c !== 0).length) {
-                    displayError("エラー: 軸固定で同じ車番は選べません。");
+                const fixedHorsesSet = new Set(fixedHorses.filter(c => c !== 0));
+                if (fixedHorsesSet.size !== fixedHorses.filter(c => c !== 0).length) {
+                    displayError("エラー: 軸固定で同じ馬番は選べません。");
                     return;
                 }
-                for (const car of fixedCarsSet) {
-                    if (!activeCars.includes(car)) {
-                        displayError(`エラー: 軸固定された${car}号車が欠車か、レース対象外です。`);
+                for (const horse of fixedHorsesSet) {
+                    if (!activeHorses.includes(horse)) {
+                        displayError(`エラー: 軸固定された${horse}番が除外か、レース対象外です。`);
                         return;
                     }
                 }
-                if (activeCars.length < 3) {
-                    displayError("エラー: 3連単を成立させるには、3台以上の出走車が必要です。");
+                if (activeHorses.length < 3) {
+                    displayError("エラー: 3連単を成立させるには、3頭以上の出走馬が必要です。");
                     return;
                 }
 
                 let result = [0, 0, 0];
-                let availableCars = [...activeCars];
-                [fix1, fix2, fix3].forEach((car, index) => {
-                    if (car !== 0) {
-                        result[index] = car;
-                        availableCars = availableCars.filter(c => c !== car);
+                let availableHorses = [...activeHorses];
+                [fix1, fix2, fix3].forEach((horse, index) => {
+                    if (horse !== 0) {
+                        result[index] = horse;
+                        availableHorses = availableHorses.filter(c => c !== horse);
                     }
                 });
 
-                availableCars = shuffleArray(availableCars);
+                availableHorses = shuffleArray(availableHorses);
                 for (let i = 0; i < 3; i++) {
                     if (result[i] === 0) {
-                        result[i] = availableCars.shift();
+                        result[i] = availableHorses.shift();
                     }
                 }
                 
@@ -451,24 +521,13 @@
                     runAnimation(result); // runAnimation内でボタン有効化を処理
                 } else {
                     displayResult(result);
-                    // predictBtn.disabled = false; // displayResult内で有効化されるため不要
+                    predictBtn.disabled = false; // アニメーションなしの場合に有効化
                 }
             });
 
-            raceSizeSelector.addEventListener('change', () => {
-                const raceSize = parseInt(document.querySelector('input[name="race-size"]:checked').value);
-                document.querySelectorAll('#absent-selector > div').forEach((div, index) => {
-                    div.style.display = (index < raceSize) ? 'block' : 'none';
-                });
-                document.querySelectorAll('input[name="absent"]').forEach((cb, index) => {
-                    if (index >= raceSize) {
-                        cb.checked = false;
-                    }
-                });
-            });
+            raceSizeSelector.addEventListener('change', updateSelectors);
 
-            initializeSelectors();
-            raceSizeSelector.dispatchEvent(new Event('change'));
+            initializePage();
         });
     </script>
 

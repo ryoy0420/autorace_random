@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オートレース 3連単 ランダム予想</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            color: #1a237e;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        .control-group {
+            margin-bottom: 25px;
+        }
+        .control-group h2 {
+            font-size: 1.1em;
+            color: #3f51b5;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e8eaf6;
+            padding-bottom: 8px;
+        }
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .radio-group label, .checkbox-group label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #ccc;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .radio-group label {
+            background-color: #f9f9f9;
+        }
+        .radio-group input[type="radio"], .checkbox-group input[type="checkbox"] {
+            display: none;
+        }
+        .radio-group input[type="radio"]:checked + label {
+            background-color: #3f51b5;
+            color: white;
+            border-color: #3f51b5;
+            font-weight: bold;
+        }
+        .checkbox-group input[type="checkbox"]:checked + label {
+            opacity: 0.5;
+            text-decoration: line-through;
+            border-style: dashed;
+        }
+
+        /* Car Colors */
+        .car-label {
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .car-1 { background-color: #ffffff; color: #000000; border: 1px solid #999; text-shadow: none;}
+        .car-2 { background-color: #000000; }
+        .car-3 { background-color: #ff0000; }
+        .car-4 { background-color: #0000ff; }
+        .car-5 { background-color: #ffff00; color: #000000; text-shadow: none;}
+        .car-6 { background-color: #008000; }
+        .car-7 { background-color: #ffa500; }
+        .car-8 { background-color: #ffc0cb; color: #000000; text-shadow: none;}
+
+        .fix-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        .fix-group div {
+            display: flex;
+            flex-direction: column;
+        }
+        .fix-group label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .fix-group select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: white;
+            font-size: 1em;
+        }
+        .predict-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #ff4081, #f50057);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+        .predict-button:hover {
+            background: linear-gradient(45deg, #f50057, #ff4081);
+        }
+        #result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            min-height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e8eaf6;
+        }
+        .result-box {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .result-car {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 1.2em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .result-arrow {
+            font-size: 1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>3連単ランダム予想</h1>
+
+        <div class="control-group">
+            <h2>1. レース車数</h2>
+            <div id="race-size-selector" class="radio-group">
+                <input type="radio" id="size6" name="race-size" value="6">
+                <label for="size6">6車</label>
+                <input type="radio" id="size7" name="race-size" value="7">
+                <label for="size7">7車</label>
+                <input type="radio" id="size8" name="race-size" value="8" checked>
+                <label for="size8">8車</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <h2>2. 欠車指定 (あれば)</h2>
+            <div id="absent-selector" class="checkbox-group">
+                <!-- Checkboxes will be generated by JS -->
+            </div>
+        </div>
+
+        <div class="control-group">
+            <h2>3. 軸固定 (任意)</h2>
+            <div class="fix-group">
+                <div>
+                    <label for="fix1">1着固定</label>
+                    <select id="fix1">
+                        <option value="0">なし</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="fix2">2着固定</label>
+                    <select id="fix2">
+                        <option value="0">なし</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="fix3">3着固定</label>
+                    <select id="fix3">
+                        <option value="0">なし</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button id="predict-btn" class="predict-button">予想する！</button>
+
+        <div id="result">
+            <p>ここに予想結果が表示されます</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const absentSelector = document.getElementById('absent-selector');
+            const fix1Select = document.getElementById('fix1');
+            const fix2Select = document.getElementById('fix2');
+            const fix3Select = document.getElementById('fix3');
+            const predictBtn = document.getElementById('predict-btn');
+            const resultDiv = document.getElementById('result');
+            const raceSizeSelector = document.getElementById('race-size-selector');
+
+            const carColors = {
+                1: 'car-1', 2: 'car-2', 3: 'car-3', 4: 'car-4',
+                5: 'car-5', 6: 'car-6', 7: 'car-7', 8: 'car-8'
+            };
+
+            function initializeSelectors() {
+                absentSelector.innerHTML = '';
+                [fix1Select, fix2Select, fix3Select].forEach(sel => {
+                    sel.innerHTML = '<option value="0">なし</option>';
+                });
+
+                for (let i = 1; i <= 8; i++) {
+                    // Absent selector
+                    const checkboxId = `car${i}`;
+                    const carLabelClass = carColors[i].startsWith('car-1') || carColors[i].startsWith('car-5') || carColors[i].startsWith('car-8') ? '' : 'car-label';
+                    absentSelector.innerHTML += `
+                        <div>
+                            <input type="checkbox" id="${checkboxId}" name="absent" value="${i}">
+                            <label for="${checkboxId}" class="${carColors[i]} ${carLabelClass}">${i}</label>
+                        </div>
+                    `;
+
+                    // Fix selectors
+                    const option = `<option value="${i}">${i}号車</option>`;
+                    fix1Select.innerHTML += option;
+                    fix2Select.innerHTML += option;
+                    fix3Select.innerHTML += option;
+                }
+            }
+
+            function getActiveCars() {
+                const raceSize = parseInt(document.querySelector('input[name="race-size"]:checked').value);
+                const allCars = Array.from({ length: raceSize }, (_, i) => i + 1);
+                
+                const absentCars = Array.from(document.querySelectorAll('input[name="absent"]:checked'))
+                    .map(cb => parseInt(cb.value));
+
+                return allCars.filter(car => !absentCars.includes(car));
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            function displayResult(content) {
+                if (Array.isArray(content)) {
+                    resultDiv.innerHTML = `
+                        <div class="result-box">
+                            <div class="result-car ${carColors[content[0]]} ${carColors[content[0]].startsWith('car-1') || carColors[content[0]].startsWith('car-5') || carColors[content[0]].startsWith('car-8') ? '' : 'car-label'}">${content[0]}</div>
+                            <span class="result-arrow">→</span>
+                            <div class="result-car ${carColors[content[1]]} ${carColors[content[1]].startsWith('car-1') || carColors[content[1]].startsWith('car-5') || carColors[content[1]].startsWith('car-8') ? '' : 'car-label'}">${content[1]}</div>
+                            <span class="result-arrow">→</span>
+                            <div class="result-car ${carColors[content[2]]} ${carColors[content[2]].startsWith('car-1') || carColors[content[2]].startsWith('car-5') || carColors[content[2]].startsWith('car-8') ? '' : 'car-label'}">${content[2]}</div>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p>${content}</p>`;
+                }
+            }
+
+            predictBtn.addEventListener('click', () => {
+                const fix1 = parseInt(fix1Select.value);
+                const fix2 = parseInt(fix2Select.value);
+                const fix3 = parseInt(fix3Select.value);
+                const fixedCars = [fix1, fix2, fix3];
+
+                let activeCars = getActiveCars();
+
+                // --- Validation ---
+                const fixedCarsSet = new Set(fixedCars.filter(c => c !== 0));
+                if (fixedCarsSet.size !== fixedCars.filter(c => c !== 0).length) {
+                    displayResult("エラー: 軸固定で同じ車番は選べません。");
+                    return;
+                }
+
+                for (const car of fixedCarsSet) {
+                    if (!activeCars.includes(car)) {
+                        displayResult(`エラー: 軸固定された${car}号車が欠車か、レース対象外です。`);
+                        return;
+                    }
+                }
+
+                if (activeCars.length < 3) {
+                    displayResult("エラー: 3連単を成立させるには、3台以上の出走車が必要です。");
+                    return;
+                }
+                
+                // --- Prediction Logic ---
+                let result = [0, 0, 0];
+                let availableCars = [...activeCars];
+
+                // 1. Place fixed cars
+                [fix1, fix2, fix3].forEach((car, index) => {
+                    if (car !== 0) {
+                        result[index] = car;
+                        availableCars = availableCars.filter(c => c !== car);
+                    }
+                });
+
+                // 2. Fill remaining spots
+                availableCars = shuffleArray(availableCars);
+                for (let i = 0; i < 3; i++) {
+                    if (result[i] === 0) {
+                        result[i] = availableCars.shift();
+                    }
+                }
+                
+                displayResult(result);
+            });
+
+            raceSizeSelector.addEventListener('change', () => {
+                const raceSize = parseInt(document.querySelector('input[name="race-size"]:checked').value);
+                document.querySelectorAll('#absent-selector > div').forEach((div, index) => {
+                    div.style.display = (index < raceSize) ? 'block' : 'none';
+                });
+                // Uncheck disabled checkboxes
+                document.querySelectorAll('input[name="absent"]').forEach((cb, index) => {
+                    if (index >= raceSize) {
+                        cb.checked = false;
+                    }
+                });
+            });
+
+            initializeSelectors();
+            // Trigger change event to set initial visibility
+            raceSizeSelector.dispatchEvent(new Event('change'));
+        });
+    </script>
+
+</body>
+</html>
